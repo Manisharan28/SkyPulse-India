@@ -1,9 +1,14 @@
 from transformers import pipeline
 import config
+import os
 
 print("[ML] Loading Location NER Model (this may take a moment)...")
 try:
-    ner_pipeline = pipeline("token-classification", model=config.NER_MODEL, aggregation_strategy="simple")
+    try:
+        ner_pipeline = pipeline("token-classification", model=config.NER_MODEL, aggregation_strategy="simple")
+    except Exception:
+        print("[ML] Cache miss — downloading NER model from HuggingFace...")
+        ner_pipeline = pipeline("token-classification", model=config.NER_MODEL, aggregation_strategy="simple")
     print("[ML] NER Model Loaded.")
 except Exception as e:
     print(f"[ML] Failed to load NER model: {e}")

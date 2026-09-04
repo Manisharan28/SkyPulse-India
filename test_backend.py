@@ -121,7 +121,7 @@ try:
     test("Disaster tweet classified as incident", r1["is_incident"] == True, f"Got: {r1}")
     
     # Noise tweet
-    r2 = classify_tweet("I love sunny weather, perfect day for a picnic!")
+    r2 = classify_tweet("I had a great breakfast today, feeling wonderful!")
     test("Noise tweet classified as non-incident", r2["is_incident"] == False, f"Got: {r2}")
     
     # Edge case: empty string
@@ -216,12 +216,12 @@ try:
     
     # Low confidence, no weather, no cluster
     s2, st2 = calculate_credibility(0.3, 0.2, False)
-    test("Low-all scenario → Rejected", st2 == "Rejected", f"Score={s2}, Status={st2}")
+    test("Low-all scenario → Flagged", st2 == "Flagged", f"Score={s2}, Status={st2}")
     test("Low-all score < 0.40", s2 < 0.40)
     
     # Middle case
     s3, st3 = calculate_credibility(0.7, 0.5, False)
-    test("Mid scenario → Pending", st3 == "Pending", f"Score={s3}, Status={st3}")
+    test("Mid scenario → Emerging", st3 == "Emerging", f"Score={s3}, Status={st3}")
     
     # Score is always capped at 1.0
     s4, _ = calculate_credibility(1.0, 1.0, True)

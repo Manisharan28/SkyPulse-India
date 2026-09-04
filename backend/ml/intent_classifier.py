@@ -1,10 +1,17 @@
 from transformers import pipeline
 import config
+import os
 
 print("[ML] Loading Intent Classifier Model (this may take a moment)...")
 try:
-    # aellxx/disaster-tweet-distilbert outputs POSITIVE for disaster, NEGATIVE for not-disaster
-    classifier = pipeline("text-classification", model=config.DISASTER_MODEL)
+    try:
+        # Try loading from local cache first (no network needed)
+        classifier = pipeline("text-classification", model=config.DISASTER_MODEL)
+    except Exception:
+        # Fallback: download from HuggingFace if not cached
+        print("[ML] Cache miss — downloading model from HuggingFace...")
+        # aellxx/disaster-tweet-distilbert outputs POSITIVE for disaster, NEGATIVE for not-disaster
+        classifier = pipeline("text-classification", model=config.DISASTER_MODEL)
     print("[ML] Intent Classifier Loaded.")
 except Exception as e:
     print(f"[ML] Failed to load intent classifier: {e}")

@@ -84,6 +84,8 @@ def process_and_insert(tweet):
         "username": tweet.get("username", ""),
         "followers": tweet.get("followers", 0),
         "has_media": tweet.get("has_media", False),
+        "media_urls": tweet.get("media_urls", []),
+        "tweet_url": f"https://x.com/{tweet.get('username', 'i')}/status/{tweet.get('id', '')}" if tweet.get("id") else None,
         "event_type": event_type,
         "timestamp": datetime.fromisoformat(tweet.get("timestamp", "").replace("Z", "+00:00")),
         "location": location,
@@ -131,9 +133,6 @@ def live_ingestion_sync():
     """Runs the asyncio event loop for the live scraper in a background thread."""
     from ingestion.live_scraper import init_scraper, fetch_live_tweets, record_tweets
     
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    
     async def _live_loop():
         ready, api = await init_scraper()
         if not ready:
@@ -163,14 +162,12 @@ def live_ingestion_sync():
                 return False
 
     try:
-        success = loop.run_until_complete(_live_loop())
+        success = asyncio.run(_live_loop())
         if not success:
             mock_ingestion_loop()
     except Exception as e:
         print(f"[LIVE] Unhandled exception: {e}. Falling back to MOCK mode.")
         mock_ingestion_loop()
-    finally:
-        loop.close()
 
 def start_ingestion(app):
     mode = config.INGESTION_MODE.upper()

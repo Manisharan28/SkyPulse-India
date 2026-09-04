@@ -20,12 +20,22 @@ async def init_scraper():
             return False, None
             
         try:
+            # Parse cookie string "key1=val1; key2=val2" into a dict
+            cookies_str = config.TWITTER_COOKIES
+            cookies_parsed = None
+            if cookies_str:
+                cookies_parsed = dict(
+                    item.strip().split("=", 1)
+                    for item in cookies_str.strip('"').split(";")
+                    if "=" in item.strip()
+                )
+
             await api.pool.add_account(
                 config.TWITTER_USERNAME,
                 config.TWITTER_PASSWORD,
                 config.TWITTER_EMAIL,
                 config.TWITTER_EMAIL_PASSWORD,
-                cookies=config.TWITTER_COOKIES if config.TWITTER_COOKIES else None
+                cookies=cookies_parsed
             )
             await api.pool.login_all()
             print("[SCRAPER] Successfully logged into Twitter/X.")
@@ -68,14 +78,23 @@ async def fetch_live_tweets(api, batch_size=15):
             mapped = {
                 "id": str(tweet.id),
                 "text": tweet.rawContent,
-                "timestamp": tweet.date.isoformat() + "Z",
+                "timestamp": tweet.date.isoformat(),
                 "username": tweet.user.username,
                 "followers": tweet.user.followersCount,
                 "has_media": len(tweet.media.photos) > 0 or len(tweet.media.videos) > 0 if tweet.media else False,
+                "media_urls": [],
                 "coordinates": coords,
                 "event_type": infer_event_type(tweet.rawContent),
                 "source": "live"
             }
+            
+            if tweet.media:
+                for photo in tweet.media.photos:
+                    mapped["media_urls"].append({"type": "photo", "url": photo.url})
+                for video in tweet.media.videos:
+                    thumb = video.thumbnailUrl if hasattr(video, 'thumbnailUrl') else None
+                    if thumb:
+                        mapped["media_urls"].append({"type": "video", "url": thumb})
             mapped_tweets.append(mapped)
             
         print(f"[SCRAPER] Fetched and mapped {len(mapped_tweets)} live tweets.")

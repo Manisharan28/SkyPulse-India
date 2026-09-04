@@ -16,6 +16,11 @@ def create_app():
     # Initialize Database
     with app.app_context():
         init_db()
+        # One-time cleanup: remove old mock data so dashboard shows real tweets only
+        from database.mongo import get_collection
+        result = get_collection().delete_many({"source": "mock"})
+        if result.deleted_count > 0:
+            print(f"[DB] Cleaned {result.deleted_count} old mock documents from database.")
         
     # Start background threads
     start_ingestion(app)

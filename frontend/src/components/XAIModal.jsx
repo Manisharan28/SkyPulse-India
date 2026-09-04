@@ -2,6 +2,18 @@ import React from 'react';
 import { X, CheckCircle, AlertTriangle, ShieldAlert } from 'lucide-react';
 import { STATUS_COLORS } from '../utils/constants';
 
+function linkifyText(text) {
+  if (!text) return "";
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  const parts = text.split(urlRegex);
+  return parts.map((part, i) =>
+    urlRegex.test(part)
+      ? <a key={i} href={part} target="_blank" rel="noopener noreferrer"
+           className="text-blue-400 underline hover:text-blue-300">{part}</a>
+      : part
+  );
+}
+
 export default function XAIModal({ alert, onClose }) {
   if (!alert) return null;
 
@@ -31,12 +43,33 @@ export default function XAIModal({ alert, onClose }) {
                 {new Date(alert.timestamp).toLocaleString()}
               </span>
             </div>
-            <h2 className="text-gray-100 font-medium text-lg leading-snug">"{alert.text}"</h2>
+            <h2 className="text-gray-100 font-medium text-lg leading-snug">
+              "{linkifyText(alert.text)}"
+            </h2>
             <div className="text-gray-400 text-sm mt-2 flex items-center space-x-1">
               <span>@{alert.username}</span>
               <span className="text-gray-600">•</span>
               <span>{alert.followers.toLocaleString()} followers</span>
             </div>
+            
+            {/* Clickable Original Tweet Link */}
+            {alert.tweet_url && (
+              <a href={alert.tweet_url} target="_blank" rel="noopener noreferrer"
+                 className="text-blue-400 text-xs hover:underline mt-2 inline-block">
+                🔗 View original on X
+              </a>
+            )}
+            
+            {/* Media Thumbnails */}
+            {alert.media_urls?.length > 0 && (
+              <div className="flex gap-2 mt-4 flex-wrap">
+                {alert.media_urls.map((m, i) => (
+                  <a key={i} href={m.url} target="_blank" rel="noopener noreferrer">
+                    <img src={m.url} alt="media" className="w-24 h-24 object-cover rounded-lg border border-gray-700 hover:opacity-80 transition-opacity" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
           <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors">
             <X className="w-5 h-5" />
