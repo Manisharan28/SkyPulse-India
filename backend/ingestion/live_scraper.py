@@ -5,6 +5,10 @@ from datetime import datetime, UTC
 from twscrape import API, gather
 import config
 
+def is_in_india(lat, lon):
+    bb = config.INDIA_BBOX
+    return bb["sw_lat"] <= lat <= bb["ne_lat"] and bb["sw_lon"] <= lon <= bb["ne_lon"]
+
 async def init_scraper():
     """Initializes the twscrape API and logs in the account if necessary."""
     api = API()
@@ -56,6 +60,12 @@ def infer_event_type(text):
         return "Heatwave"
     elif "cyclone" in text_lower or "hurricane" in text_lower:
         return "Cyclone"
+    elif "thunder" in text_lower or "lightning" in text_lower:
+        return "Thunderstorm"
+    elif "fog" in text_lower or "smog" in text_lower or "visibility" in text_lower:
+        return "Fog"
+    elif "dust" in text_lower or "sandstorm" in text_lower:
+        return "Dust Storm"
     elif "wind" in text_lower or "gust" in text_lower or "storm" in text_lower:
         return "Wind"
     else:
@@ -67,7 +77,14 @@ async def fetch_live_tweets(api, batch_size=15):
     
     mapped_tweets = []
     try:
-        tweets = await gather(api.search(config.SCRAPE_QUERY, limit=batch_size))
+        try:
+            tweets = await gather(api.search(config.SCRAPE_QUERY, limit=batch_size))
+        except Exception as e:
+            if "rate" in str(e).lower() or "429" in str(e):
+                print("[SCRAPER] Rate limited, sleeping 60s...")
+                await asyncio.sleep(60)
+                return []
+            raise
         
         for tweet in tweets:
             coords = None
@@ -115,6 +132,11 @@ async def record_tweets(tweets, filepath):
                     pass
                     
         existing_data.extend(tweets)
+        
+        # Cap at 500 most recent tweets to prevent unbounded growth
+        MAX_RECORDED = 500
+        if len(existing_data) > MAX_RECORDED:
+            existing_data = existing_data[-MAX_RECORDED:]
         
         # Write back
         with open(filepath, "w", encoding="utf-8") as f:

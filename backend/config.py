@@ -31,7 +31,17 @@ TWITTER_EMAIL_PASSWORD = os.getenv("TWITTER_EMAIL_PASSWORD", "")
 TWITTER_COOKIES = os.getenv("TWITTER_COOKIES", "")
 
 # ─── Scrape Query ────────────────────────────────────────────────
-SCRAPE_QUERY = "(#IMD OR #weather OR flood OR cyclone OR heavy rain) lang:en"
+SCRAPE_QUERY = (
+    "(#IMD OR #Mausam OR #RainAlert OR #FloodAlert OR #Cyclone "
+    "OR #Heatwave OR #Thunderstorm OR #Fog) "
+    "(India OR Mumbai OR Delhi OR Chennai OR Kolkata OR Bengaluru "
+    "OR Hyderabad OR Jaipur OR Patna OR Guwahati OR Kerala "
+    "OR Maharashtra OR Tamil Nadu OR Gujarat OR Rajasthan) "
+    "lang:en -is:retweet"
+)
+
+# ─── India Bounding Box ────────────────────────────────────────
+INDIA_BBOX = {"sw_lat": 6.0, "sw_lon": 68.0, "ne_lat": 38.5, "ne_lon": 99.5}
 
 # ─── ML Models (HuggingFace) ────────────────────────────────────
 DISASTER_MODEL = "aellxx/disaster-tweet-distilbert"

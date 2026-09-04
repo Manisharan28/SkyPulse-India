@@ -63,7 +63,13 @@ def update_clusters():
         is_clustered = cluster_id is not None
         
         # Recalculate credibility with clustering taken into account
-        new_score, new_status = calculate_credibility(ml_conf, weather_score, is_clustered)
+        new_score, new_status = calculate_credibility(
+            ml_conf, 
+            weather_score, 
+            is_clustered,
+            followers=alert.get("followers", 0),
+            has_media=alert.get("has_media", False)
+        )
         
         update_data = {
             "$set": {

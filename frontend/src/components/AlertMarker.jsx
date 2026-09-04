@@ -15,6 +15,7 @@ export default function AlertMarker({ alert, onClick }) {
   return (
     <CircleMarker
       center={[lat, lng]}
+      pane="markerPane"
       pathOptions={{ 
         fillColor: color, 
         fillOpacity: 0.8,
@@ -25,12 +26,13 @@ export default function AlertMarker({ alert, onClick }) {
       eventHandlers={{
         click: () => onClick(alert),
       }}
-      className={isVerified ? 'marker-pulse cursor-pointer' : 'cursor-pointer'}
+      className="cursor-pointer"
     >
       <Tooltip direction="top" offset={[0, -10]} opacity={1} className="custom-popup">
         <div className="bg-gray-900 border border-gray-700 rounded shadow-xl p-2 max-w-[200px] text-white font-sans">
           <div className="font-bold flex items-center space-x-1">
             <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }}></span>
+            <span>{alert.source === 'imd' ? '🌤️' : '🐦'}</span>
             <span>{alert.event_type}</span>
           </div>
           <div className="text-xs text-gray-300 mt-1 line-clamp-2">{alert.text}</div>

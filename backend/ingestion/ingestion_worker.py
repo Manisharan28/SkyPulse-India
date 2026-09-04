@@ -62,6 +62,18 @@ def process_and_insert(tweet):
     # If we couldn't geolocate it, we still store it, but it won't appear on the map
     if not location:
         print(f"[NER] Failed to extract location from tweet {tweet.get('id')}")
+        # Secondary filter: if no location AND low ML confidence, drop it
+        if intent["confidence"] < 0.75:
+            print(f"[DISCARD] Tweet {tweet.get('id')} dropped — no location + low confidence ({intent['confidence']:.2f})")
+            return
+    else:
+        # Bounding box check
+        from ingestion.live_scraper import is_in_india
+        lat = location["coordinates"][1]
+        lon = location["coordinates"][0]
+        if not is_in_india(lat, lon):
+            print(f"[DISCARD] Outside India bbox: ({lat}, {lon})")
+            return
         
     # 3. Ground-Truth Verification (Phase 3)
     weather_score = 0.5
@@ -73,7 +85,9 @@ def process_and_insert(tweet):
     initial_score, initial_status = calculate_credibility(
         ml_confidence=intent["confidence"], 
         weather_score=weather_score, 
-        is_clustered=False
+        is_clustered=False,
+        followers=tweet.get("followers", 0),
+        has_media=tweet.get("has_media", False)
     )
         
     collection = get_collection()

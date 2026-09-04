@@ -3,10 +3,11 @@ import StatsBar from './components/StatsBar'
 import Sidebar from './components/Sidebar'
 import MapView from './components/MapView'
 import XAIModal from './components/XAIModal'
+import EventChart from './components/EventChart'
 import { useAlerts } from './hooks/useAlerts'
 
 function App() {
-  const [filters, setFilters] = useState({ status: [], eventType: [] });
+  const [filters, setFilters] = useState({ status: [], eventType: [], source: 'All' });
   const [selectedAlert, setSelectedAlert] = useState(null);
   
   // Custom hook fetches and polls the backend API
@@ -18,7 +19,11 @@ function App() {
       
       <div className="flex-1 flex overflow-hidden relative">
         <div className="absolute top-0 left-0 bottom-0 z-10 pointer-events-none p-4">
-          <Sidebar filters={filters} setFilters={setFilters} />
+          <Sidebar filters={filters} setFilters={setFilters} alerts={alerts} onAlertClick={(alert) => setSelectedAlert(alert)} />
+        </div>
+
+        <div className="absolute top-0 right-0 z-10 pointer-events-auto p-4 w-96 mt-2 opacity-95">
+          <EventChart alerts={alerts} />
         </div>
         
         <div className="flex-1 z-0">

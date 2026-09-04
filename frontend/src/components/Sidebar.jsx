@@ -2,7 +2,7 @@ import React from 'react';
 import { STATUS_COLORS, EVENT_TYPES } from '../utils/constants';
 import { Filter, RotateCcw } from 'lucide-react';
 
-export default function Sidebar({ filters, setFilters }) {
+export default function Sidebar({ filters, setFilters, alerts = [], onAlertClick }) {
   const toggleStatus = (status) => {
     setFilters(prev => {
       const current = prev.status || [];
@@ -23,8 +23,12 @@ export default function Sidebar({ filters, setFilters }) {
     });
   };
 
+  const setSource = (src) => {
+    setFilters(prev => ({ ...prev, source: src }));
+  };
+
   const resetFilters = () => {
-    setFilters({ status: [], eventType: [] });
+    setFilters({ status: [], eventType: [], source: 'All' });
   };
 
   return (
@@ -76,6 +80,26 @@ export default function Sidebar({ filters, setFilters }) {
           </div>
         </div>
 
+        {/* Source Filter */}
+        <div className="space-y-3">
+          <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">Source Data</h3>
+          <div className="flex bg-gray-800 rounded-lg p-1">
+            {['All', 'Twitter', 'IMD'].map(src => (
+              <button
+                key={src}
+                onClick={() => setSource(src)}
+                className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-colors ${
+                  (filters.source || 'All') === src
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-400 hover:text-gray-200 hover:bg-gray-700'
+                }`}
+              >
+                {src}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Event Type Filter */}
         <div className="space-y-3">
           <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase">Event Type</h3>
@@ -103,6 +127,30 @@ export default function Sidebar({ filters, setFilters }) {
               </label>
             ))}
           </div>
+        </div>
+      </div>
+      
+      {/* Recent Alerts Feed */}
+      <div className="p-5 border-t border-gray-800 mt-auto">
+        <h3 className="text-sm font-semibold tracking-wider text-gray-400 uppercase mb-3">
+          Recent Alerts
+        </h3>
+        <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
+          {alerts.slice(0, 20).map(alert => (
+            <div key={alert._id}
+              onClick={() => onAlertClick && onAlertClick(alert)}
+              className="p-2 rounded-lg bg-gray-800/50 hover:bg-gray-800 cursor-pointer border border-gray-700/50 transition-colors">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: STATUS_COLORS[alert.status] }} />
+                <span className="text-xs font-bold text-gray-300 uppercase">{alert.event_type}</span>
+                <span className="text-[10px] text-gray-500 ml-auto">
+                  {new Date(alert.timestamp).toLocaleTimeString()}
+                </span>
+              </div>
+              <div className="text-xs text-gray-400 line-clamp-2">{alert.text}</div>
+              <div className="text-[10px] text-gray-500 mt-1">@{alert.username}</div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
