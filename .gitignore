@@ -1,0 +1,19 @@
+# Environment files
+.env
+.env.*
+
+# Python
+venv/
+__pycache__/
+*.pyc
+accounts.db
+
+# Node
+node_modules/
+dist/
+.vite/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store

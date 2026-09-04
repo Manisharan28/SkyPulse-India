@@ -1,0 +1,592 @@
+[
+  {
+    "id": "605a59e4-5187-4688-8db6-39d2f9c5330c",
+    "text": "Terrible wind situation in Delhi. We need help immediately! #IMD",
+    "timestamp": "2026-09-03T03:54:03.901782Z",
+    "username": "user_2005",
+    "followers": 168576,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Wind"
+  },
+  {
+    "id": "31a7e5b1-ff7f-481e-ba3c-f07958302e73",
+    "text": "Massive heavy rain here in Delhi! Roads are completely blocked. #IMD",
+    "timestamp": "2026-09-02T02:21:10.235975Z",
+    "username": "user_5696",
+    "followers": 122848,
+    "has_media": false,
+    "coordinates": [
+      28.6933,
+      77.1063
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "cbcc1bcc-f006-48ec-8aa3-e38a23b654db",
+    "text": "Emergency services struggling with the flood in Kolkata. Please RT! #IMD",
+    "timestamp": "2026-09-02T16:42:08.401597Z",
+    "username": "user_8435",
+    "followers": 64129,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "b1e1c8f4-17c9-4f8e-824c-5ab5bbc10236",
+    "text": "The heavy rain in Kolkata is getting out of hand. Stay safe everyone. #IMD",
+    "timestamp": "2026-09-02T03:16:31.192364Z",
+    "username": "user_1267",
+    "followers": 389620,
+    "has_media": false,
+    "coordinates": [
+      22.5599,
+      88.335
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "317e586d-c400-42c7-88c3-4b09edb52e93",
+    "text": "Water levels rising fast due to the heatwave in Delhi. #IMD update please.",
+    "timestamp": "2026-09-02T16:21:05.734217Z",
+    "username": "user_3718",
+    "followers": 23573,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "9f8594e3-90c0-40ff-bcc6-3a836626f760",
+    "text": "Emergency services struggling with the cyclone in Mumbai. Please RT! #IMD",
+    "timestamp": "2026-09-01T18:38:58.092197Z",
+    "username": "user_8988",
+    "followers": 42025,
+    "has_media": true,
+    "coordinates": [
+      19.0619,
+      72.9147
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "7e05c626-2477-4365-b986-97dc41b9a181",
+    "text": "Emergency services struggling with the cyclone in Bengaluru. Please RT! #IMD",
+    "timestamp": "2026-09-02T04:03:41.563693Z",
+    "username": "user_8108",
+    "followers": 77451,
+    "has_media": false,
+    "coordinates": [
+      12.9519,
+      77.6416
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "057ade34-880a-4418-8872-cac7137d1ffb",
+    "text": "Power cut for 12 hours because of the flood hitting Mumbai. #IMD",
+    "timestamp": "2026-09-03T01:50:10.183172Z",
+    "username": "user_2759",
+    "followers": 251891,
+    "has_media": false,
+    "coordinates": [
+      19.05,
+      72.9017
+    ],
+    "event_type": "Flood"
+  },
+  {
+    "id": "bb627bd3-58ae-43ac-b59e-cb21fb97824e",
+    "text": "Terrible heavy rain situation in Bengaluru. We need help immediately! #IMD",
+    "timestamp": "2026-09-03T14:14:47.656497Z",
+    "username": "user_1568",
+    "followers": 22334,
+    "has_media": true,
+    "coordinates": [
+      12.9621,
+      77.5844
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "c4ef426d-ea17-4e72-b4ee-443d40809d7b",
+    "text": "Terrible heavy rain situation in Mumbai. We need help immediately! #IMD",
+    "timestamp": "2026-09-02T06:07:51.029943Z",
+    "username": "user_4112",
+    "followers": 211386,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "8fc81080-4178-434e-b179-d957b2e18264",
+    "text": "Power cut for 12 hours because of the cyclone hitting Bengaluru. #IMD",
+    "timestamp": "2026-09-03T05:52:35.457219Z",
+    "username": "user_9405",
+    "followers": 151653,
+    "has_media": true,
+    "coordinates": [
+      12.9512,
+      77.642
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "52417135-c1d5-491f-b6c5-714239c4698a",
+    "text": "Emergency services struggling with the flood in Kolkata. Please RT! #IMD",
+    "timestamp": "2026-09-02T08:10:49.639055Z",
+    "username": "user_1165",
+    "followers": 425046,
+    "has_media": true,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "996bea3f-8eea-456c-8c17-6cda563f703a",
+    "text": "Emergency services struggling with the heatwave in Jaipur. Please RT! #IMD",
+    "timestamp": "2026-09-03T12:30:21.434131Z",
+    "username": "user_1998",
+    "followers": 442483,
+    "has_media": false,
+    "coordinates": [
+      26.9366,
+      75.7749
+    ],
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "36210ce7-7021-4518-abc9-fae3a6970fa2",
+    "text": "Emergency services struggling with the heavy rain in Delhi. Please RT! #IMD",
+    "timestamp": "2026-09-02T10:42:23.813961Z",
+    "username": "user_5241",
+    "followers": 442600,
+    "has_media": true,
+    "coordinates": [
+      28.6756,
+      77.1238
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "981c025a-2e39-47fa-a918-f3a05bc1c6fa",
+    "text": "The flood in Mumbai is getting out of hand. Stay safe everyone. #IMD",
+    "timestamp": "2026-09-03T00:28:47.381466Z",
+    "username": "user_3796",
+    "followers": 92909,
+    "has_media": false,
+    "coordinates": [
+      19.066,
+      72.8973
+    ],
+    "event_type": "Flood"
+  },
+  {
+    "id": "8001245c-ad44-415f-84bc-ec38d84a69c0",
+    "text": "Massive heatwave here in Patna! Roads are completely blocked. #IMD",
+    "timestamp": "2026-09-02T03:22:07.214405Z",
+    "username": "user_4535",
+    "followers": 376362,
+    "has_media": false,
+    "coordinates": [
+      25.6333,
+      85.1794
+    ],
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "d82ae5e8-b623-4f5a-855a-c5a1ac5cae60",
+    "text": "Water levels rising fast due to the cyclone in Patna. #IMD update please.",
+    "timestamp": "2026-09-03T15:40:46.486945Z",
+    "username": "user_8740",
+    "followers": 498941,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "f1d8545c-d5f7-4b86-ab5f-38a79dff196c",
+    "text": "The heavy rain in Jaipur is getting out of hand. Stay safe everyone. #IMD",
+    "timestamp": "2026-09-02T20:55:07.188122Z",
+    "username": "user_6459",
+    "followers": 64566,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "e44681ed-9f43-4025-8303-47ee43d29c12",
+    "text": "Emergency services struggling with the cyclone in Kolkata. Please RT! #IMD",
+    "timestamp": "2026-09-02T07:22:14.306734Z",
+    "username": "user_4120",
+    "followers": 389507,
+    "has_media": false,
+    "coordinates": [
+      22.5325,
+      88.3669
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "e110d9b0-628a-420b-b471-ac282da76204",
+    "text": "Massive wind here in Guwahati! Roads are completely blocked. #IMD",
+    "timestamp": "2026-09-02T16:10:03.562527Z",
+    "username": "user_7735",
+    "followers": 456493,
+    "has_media": false,
+    "coordinates": [
+      26.1085,
+      91.7142
+    ],
+    "event_type": "Wind"
+  },
+  {
+    "id": "b8e5943c-5ffe-4077-9f73-b87a6e394c39",
+    "text": "The heavy rain in Mumbai is getting out of hand. Stay safe everyone. #IMD",
+    "timestamp": "2026-09-02T01:37:21.283180Z",
+    "username": "user_3394",
+    "followers": 277531,
+    "has_media": true,
+    "coordinates": [
+      19.0971,
+      72.9095
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "71d9ff47-4929-41af-96d0-0dcf7243e8c3",
+    "text": "Power cut for 12 hours because of the cyclone hitting Jaipur. #IMD",
+    "timestamp": "2026-09-02T15:46:35.749215Z",
+    "username": "user_7966",
+    "followers": 439618,
+    "has_media": true,
+    "coordinates": [
+      26.924,
+      75.7889
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "5cab58a2-c4cf-494b-877b-1412faa09ce1",
+    "text": "Power cut for 12 hours because of the cyclone hitting Guwahati. #IMD",
+    "timestamp": "2026-09-02T11:13:38.187143Z",
+    "username": "user_5574",
+    "followers": 340163,
+    "has_media": false,
+    "coordinates": [
+      26.1769,
+      91.7718
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "d532a914-891b-443c-86ff-2dafc5ff07fc",
+    "text": "Power cut for 12 hours because of the wind hitting Patna. #IMD",
+    "timestamp": "2026-09-01T20:01:21.174005Z",
+    "username": "user_6871",
+    "followers": 329011,
+    "has_media": true,
+    "coordinates": [
+      25.6293,
+      85.1046
+    ],
+    "event_type": "Wind"
+  },
+  {
+    "id": "64873ae7-15fa-4414-96eb-86480fee57c8",
+    "text": "Power cut for 12 hours because of the heavy rain hitting Jaipur. #IMD",
+    "timestamp": "2026-09-01T19:07:56.755122Z",
+    "username": "user_6818",
+    "followers": 465971,
+    "has_media": true,
+    "coordinates": [
+      26.9214,
+      75.7987
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "6c348b9e-29ae-4274-81f8-b999ef414d59",
+    "text": "Terrible heavy rain situation in Chennai. We need help immediately! #IMD",
+    "timestamp": "2026-09-02T20:46:39.620880Z",
+    "username": "user_5387",
+    "followers": 409304,
+    "has_media": true,
+    "coordinates": null,
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "063ab22f-4aac-48fa-8cbc-c0ec7e322aaa",
+    "text": "Terrible heatwave situation in Mumbai. We need help immediately! #IMD",
+    "timestamp": "2026-09-01T19:58:22.379726Z",
+    "username": "user_2246",
+    "followers": 262917,
+    "has_media": false,
+    "coordinates": [
+      19.0614,
+      72.8324
+    ],
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "de165c05-63b6-4509-a936-cf590dc0c587",
+    "text": "Terrible heavy rain situation in Patna. We need help immediately! #IMD",
+    "timestamp": "2026-09-03T12:17:30.056197Z",
+    "username": "user_8092",
+    "followers": 174550,
+    "has_media": false,
+    "coordinates": [
+      25.5938,
+      85.1759
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "53e1fd94-53f2-4dbf-842e-fbe4f0a318dc",
+    "text": "Water levels rising fast due to the heavy rain in Delhi. #IMD update please.",
+    "timestamp": "2026-09-02T21:24:23.116502Z",
+    "username": "user_7847",
+    "followers": 17454,
+    "has_media": false,
+    "coordinates": [
+      28.7161,
+      77.1324
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "7d703468-fcef-4739-ac91-9dc6420024a8",
+    "text": "Massive heatwave here in Patna! Roads are completely blocked. #IMD",
+    "timestamp": "2026-09-01T18:26:28.807189Z",
+    "username": "user_2057",
+    "followers": 344285,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "6e8e7555-81e1-44e8-8e3e-0e2dd307acb9",
+    "text": "Terrible flood situation in Bengaluru. We need help immediately! #IMD",
+    "timestamp": "2026-09-03T01:45:44.991071Z",
+    "username": "user_7092",
+    "followers": 219195,
+    "has_media": false,
+    "coordinates": [
+      12.9281,
+      77.6328
+    ],
+    "event_type": "Flood"
+  },
+  {
+    "id": "5d7497ac-4b87-4358-bdc5-1328d1e11feb",
+    "text": "Emergency services struggling with the heatwave in Delhi. Please RT! #IMD",
+    "timestamp": "2026-09-02T06:18:34.866112Z",
+    "username": "user_3940",
+    "followers": 324672,
+    "has_media": true,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "4a4f3a10-7256-49cf-a10e-c19d143535f1",
+    "text": "Emergency services struggling with the flood in Bengaluru. Please RT! #IMD",
+    "timestamp": "2026-09-02T23:34:58.970664Z",
+    "username": "user_2565",
+    "followers": 249692,
+    "has_media": true,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "8fb9ae2d-d944-44ed-aefd-c565f96fedc8",
+    "text": "Water levels rising fast due to the heatwave in Jaipur. #IMD update please.",
+    "timestamp": "2026-09-03T04:39:18.629861Z",
+    "username": "user_8821",
+    "followers": 72580,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "1826fa68-6b77-4799-869e-f27cfb16954d",
+    "text": "The cyclone in Guwahati is getting out of hand. Stay safe everyone. #IMD",
+    "timestamp": "2026-09-02T22:17:37.636931Z",
+    "username": "user_4906",
+    "followers": 411732,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "c1f7887c-967b-451a-bbbe-8450274c6076",
+    "text": "Is there really a flood coming to Guwahati? #IMD",
+    "timestamp": "2026-09-03T10:04:24.106435Z",
+    "username": "user_3342",
+    "followers": 350563,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "0817d20c-5578-42fa-adfa-c2ee12de6cd0",
+    "text": "Is there really a cyclone coming to Jaipur? #IMD",
+    "timestamp": "2026-09-02T21:47:00.700998Z",
+    "username": "user_2711",
+    "followers": 28212,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "2e53e4dc-e77c-49c1-9f19-fa066ce119f8",
+    "text": "Is there really a wind coming to Guwahati? #IMD",
+    "timestamp": "2026-09-02T01:41:25.724965Z",
+    "username": "user_6930",
+    "followers": 220538,
+    "has_media": false,
+    "coordinates": [
+      26.1814,
+      91.7427
+    ],
+    "event_type": "Wind"
+  },
+  {
+    "id": "07bd5599-81fb-41c8-bfec-8b6a5af0bd50",
+    "text": "Is there really a cyclone coming to Guwahati? #IMD",
+    "timestamp": "2026-09-03T13:54:37.247275Z",
+    "username": "user_4820",
+    "followers": 105968,
+    "has_media": false,
+    "coordinates": [
+      26.1828,
+      91.7419
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "a96a950d-ccaa-4126-9b47-fcd1cc25eda6",
+    "text": "I wish the #IMD app worked better for Chennai users.",
+    "timestamp": "2026-09-01T21:21:54.446972Z",
+    "username": "user_9010",
+    "followers": 422747,
+    "has_media": false,
+    "coordinates": [
+      13.0994,
+      80.2812
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "01913810-e16c-4f95-bbbe-108f84dd0022",
+    "text": "Why is the #IMD weather forecast always wrong about Jaipur?",
+    "timestamp": "2026-09-02T16:47:11.260438Z",
+    "username": "user_8905",
+    "followers": 1480,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "d36e594e-7519-4efd-9f26-d387d559c2cc",
+    "text": "I wish the #IMD app worked better for Chennai users.",
+    "timestamp": "2026-09-03T09:05:27.275296Z",
+    "username": "user_1820",
+    "followers": 181772,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Heatwave"
+  },
+  {
+    "id": "0bbe7e68-c0da-45ac-b4f6-7257ec07e087",
+    "text": "I wish the #IMD app worked better for Guwahati users.",
+    "timestamp": "2026-09-02T12:22:16.561491Z",
+    "username": "user_4343",
+    "followers": 305292,
+    "has_media": true,
+    "coordinates": [
+      26.1026,
+      91.6882
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "38326d82-c8a0-4967-8eb9-f0177dfc55f6",
+    "text": "Enjoying the weather today in Patna. Hopefully no cyclone soon! #IMD",
+    "timestamp": "2026-09-03T11:48:05.845103Z",
+    "username": "user_6708",
+    "followers": 491929,
+    "has_media": false,
+    "coordinates": [
+      25.6389,
+      85.1642
+    ],
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "dc8a3a76-4150-47d4-a7b8-0aff0d42fc6e",
+    "text": "Why is the #IMD weather forecast always wrong about Guwahati?",
+    "timestamp": "2026-09-02T18:44:38.922454Z",
+    "username": "user_9967",
+    "followers": 158374,
+    "has_media": false,
+    "coordinates": [
+      26.1052,
+      91.7649
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "2a299638-767d-4088-8f4b-9cd2dda1478e",
+    "text": "Is there really a flood coming to Chennai? #IMD",
+    "timestamp": "2026-09-01T16:54:47.508576Z",
+    "username": "user_2246",
+    "followers": 45581,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "5ae9a28c-21b3-411f-9351-f867a7bfba17",
+    "text": "Is there really a cyclone coming to Bengaluru? #IMD",
+    "timestamp": "2026-09-03T00:17:28.494451Z",
+    "username": "user_3836",
+    "followers": 171338,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Cyclone"
+  },
+  {
+    "id": "98db6cf2-41c2-43af-a938-a36c1477307e",
+    "text": "People talking about a flood but it is perfectly sunny here in Mumbai. #IMD",
+    "timestamp": "2026-09-02T17:47:11.897193Z",
+    "username": "user_9021",
+    "followers": 308912,
+    "has_media": false,
+    "coordinates": null,
+    "event_type": "Flood"
+  },
+  {
+    "id": "45a11d4a-1673-4afe-919f-4a432aedbc1d",
+    "text": "Why is the #IMD weather forecast always wrong about Jaipur?",
+    "timestamp": "2026-09-03T05:35:44.965132Z",
+    "username": "user_9682",
+    "followers": 49044,
+    "has_media": false,
+    "coordinates": [
+      26.9299,
+      75.8248
+    ],
+    "event_type": "Heavy Rain"
+  },
+  {
+    "id": "8a3a8059-f43b-41ab-860a-9f167a90b1ac",
+    "text": "I wish the #IMD app worked better for Jaipur users.",
+    "timestamp": "2026-09-03T04:19:04.613985Z",
+    "username": "user_4958",
+    "followers": 353369,
+    "has_media": false,
+    "coordinates": [
+      26.9282,
+      75.8064
+    ],
+    "event_type": "Heavy Rain"
+  }
+]
