@@ -1,40 +1,95 @@
 import React from 'react';
-import { STATUS_COLORS } from '../utils/constants';
+
+const STATUS = [
+  { key: 'total',    label: 'Total Alerts', color: '#8b949e' },
+  { key: 'verified', label: 'Verified',     color: '#22c55e' },
+  { key: 'emerging', label: 'Emerging',     color: '#f59e0b' },
+  { key: 'flagged',  label: 'Flagged',      color: '#ef4444' },
+];
 
 export default function StatsBar({ stats }) {
   return (
-    <div className="h-16 glass-panel border-b border-t-0 border-l-0 border-r-0 border-gray-800 flex items-center px-6 justify-between pointer-events-auto shadow-md z-10 relative">
-      <div className="flex items-center space-x-3">
-        <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
-        <h1 className="text-xl font-bold tracking-wide text-white">SIH Weather Intelligence</h1>
-      </div>
-      
-      <div className="flex items-center space-x-8">
-        <div className="flex flex-col items-end">
-          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Total Alerts</span>
-          <span className="text-xl font-bold text-white">{stats.total || 0}</span>
-        </div>
-        
-        <div className="h-8 w-px bg-gray-700"></div>
-        
-        <div className="flex space-x-6">
-          <StatItem label="Verified" count={stats.verified} color={STATUS_COLORS.Verified} />
-          <StatItem label="Emerging" count={stats.emerging} color={STATUS_COLORS.Emerging} />
-          <StatItem label="Flagged" count={stats.flagged} color={STATUS_COLORS.Flagged} />
-        </div>
-      </div>
-    </div>
-  );
-}
+    <header style={{
+      height: 52,
+      background: 'var(--bg-panel)',
+      borderBottom: '1px solid var(--border)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '0 20px',
+      position: 'relative',
+      zIndex: 20,
+      flexShrink: 0,
+    }}>
+      {/* Brand */}
+      <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
+        <span style={{
+          fontSize: 17,
+          fontWeight: 700,
+          color: 'var(--text-primary)',
+          letterSpacing: '-0.3px',
+        }}>
+          FasalX
+        </span>
+        <span style={{
+          fontSize: 12,
+          color: 'var(--text-muted)',
+          fontWeight: 500,
+          letterSpacing: '0.04em',
+          textTransform: 'uppercase',
+        }}>
+          Weather Intelligence
+        </span>
 
-function StatItem({ label, count, color }) {
-  return (
-    <div className="flex items-center space-x-2">
-      <div className="w-3 h-3 rounded-full shadow-sm" style={{ backgroundColor: color }}></div>
-      <div className="flex flex-col">
-        <span className="text-[10px] uppercase font-bold text-gray-400 leading-tight">{label}</span>
-        <span className="text-lg font-bold text-gray-100 leading-tight">{count || 0}</span>
+        {/* Live dot */}
+        <span style={{ display: 'flex', alignItems: 'center', gap: 4, marginLeft: 8 }}>
+          <span style={{
+            width: 6, height: 6,
+            borderRadius: '50%',
+            background: 'var(--accent)',
+            display: 'inline-block',
+            animation: 'pulse-ring 2s ease infinite',
+          }} />
+          <span style={{ fontSize: 11, color: 'var(--accent-light)', fontWeight: 500 }}>
+            LIVE
+          </span>
+        </span>
       </div>
-    </div>
+
+      {/* Stats */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+        {STATUS.map((s, i) => (
+          <div key={s.key} style={{ display: 'flex', alignItems: 'center' }}>
+            {i > 0 && (
+              <div style={{
+                width: 1, height: 28,
+                background: 'var(--border)',
+                margin: '0 16px',
+              }} />
+            )}
+            <div style={{ textAlign: 'right' }}>
+              <div style={{
+                fontSize: 10,
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                textTransform: 'uppercase',
+                letterSpacing: '0.06em',
+                marginBottom: 1,
+              }}>
+                {s.label}
+              </div>
+              <div style={{
+                fontSize: 18,
+                fontWeight: 700,
+                color: s.color,
+                lineHeight: 1,
+              }}>
+                {stats?.[s.key] ?? 0}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </header>
   );
 }

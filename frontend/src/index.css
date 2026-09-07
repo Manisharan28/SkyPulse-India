@@ -1,22 +1,41 @@
 @import "tailwindcss";
 @import "leaflet/dist/leaflet.css";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-@theme {
-  --color-verified: #22c55e;
-  --color-emerging: #f59e0b;
-  --color-flagged: #ef4444;
+/* ── Design tokens ───────────────────────────────────────────────────────── */
+:root {
+  --bg-base:        #0d1117;
+  --bg-panel:       #161b27;
+  --bg-panel-alt:   #1c2333;
+  --border:         #2a3444;
+  --border-subtle:  #1e2736;
+  --text-primary:   #e6edf3;
+  --text-secondary: #8b949e;
+  --text-muted:     #556070;
+  --accent:         #16a34a;   /* deep green */
+  --accent-light:   #4ade80;
+  --accent-dim:     rgba(22,163,74,0.15);
+  --verified:       #22c55e;
+  --emerging:       #f59e0b;
+  --flagged:        #ef4444;
 }
 
-@layer base {
-  body {
-    @apply bg-gray-950 text-gray-100 overflow-hidden;
-    font-family: 'Inter', sans-serif;
-  }
+/* ── Base ────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Leaflet Customizations for Dark Mode */
+/* ── Leaflet dark mode ───────────────────────────────────────────────────── */
 .leaflet-container {
-  background-color: #111827 !important;
+  background: #0d1117 !important;
   font-family: inherit !important;
 }
 
@@ -24,28 +43,111 @@
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out,
 .leaflet-control-attribution {
-  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  filter: invert(100%) hue-rotate(180deg) brightness(90%) contrast(85%);
 }
 
-.glass-panel {
-  @apply bg-gray-900/80 backdrop-blur-md border border-gray-800 shadow-xl;
+/* ── Panel base ──────────────────────────────────────────────────────────── */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border);
 }
 
-/* Custom Marker Pulse */
-.marker-pulse {
-  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+/* ── Filter section divider ──────────────────────────────────────────────── */
+.filter-section + .filter-section {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 14px;
+  margin-top: 14px;
 }
 
+/* ── Checkbox custom ─────────────────────────────────────────────────────── */
+.check-box {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+.check-box.checked {
+  border-color: transparent;
+}
+
+/* ── Slider ──────────────────────────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--border);
+  outline: none;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: 2px solid #fff;
+}
+
+/* ── Autocomplete dropdown ───────────────────────────────────────────────── */
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.1s;
+  border-bottom: 1px solid var(--border-subtle);
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover,
+.suggestion-item.active {
+  background: var(--accent-dim);
+}
+
+
+/* ── pulse-ring keyframe (StatsBar LIVE dot + loading spinner) ───────────── */
+/* .marker-pulse intentionally removed — verified map markers are static.    */
 @keyframes pulse-ring {
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(2.5); opacity: 0; }
+  0%   { opacity: 1;   transform: scale(1);   }
+  50%  { opacity: 0.5; transform: scale(1.3); }
+  100% { opacity: 1;   transform: scale(1);   }
 }
 
+/* ── Leaflet popup reset ─────────────────────────────────────────────────── */
 .custom-popup .leaflet-popup-content-wrapper {
   background: transparent;
   padding: 0;
   box-shadow: none;
 }
-.custom-popup .leaflet-popup-tip-container {
-  display: none;
+.custom-popup .leaflet-popup-tip-container { display: none; }
+
+/* ── Scrollbar (panel) ───────────────────────────────────────────────────── */
+.panel-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.panel-scroll::-webkit-scrollbar { width: 4px; }
+.panel-scroll::-webkit-scrollbar-track { background: transparent; }
+.panel-scroll::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
 }
