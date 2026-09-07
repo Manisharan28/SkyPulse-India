@@ -20,7 +20,7 @@ export default function AlertMarker({ alert, onClick }) {
         weight:      verified ? 1.5 : 0.5,
         opacity:     0.9,
       }}
-      className={verified ? 'marker-pulse' : ''}
+      className=""
       eventHandlers={{ click: () => onClick(alert) }}
     >
       <Tooltip direction="top" offset={[0, -8]} opacity={1} className="custom-popup">
