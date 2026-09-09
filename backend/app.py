@@ -25,11 +25,13 @@ def create_app():
     from ingestion.ingestion_worker import start_ingestion
     from verification.clustering import start_clustering
     from ingestion.imd_poller import start_imd_poller
+    from ingestion.cleanup_worker import start_cleanup_worker
     
     # Start background threads
     start_ingestion(app)
     start_clustering(app)
     start_imd_poller(app)
+    start_cleanup_worker(app)
     
     # Register blueprints (to be populated in Phase 4)
     from routes.alerts import alerts_bp

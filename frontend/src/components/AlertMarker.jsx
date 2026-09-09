@@ -3,39 +3,47 @@ import { CircleMarker, Tooltip } from 'react-leaflet';
 import { STATUS_COLORS } from '../utils/constants';
 
 export default function AlertMarker({ alert, onClick }) {
-  // We only render if location exists
-  if (!alert.location || !alert.location.coordinates) return null;
-  
-  // Coordinates in DB are [lng, lat], Leaflet expects [lat, lng]
+  if (!alert.location?.coordinates) return null;
+
   const [lng, lat] = alert.location.coordinates;
-  const color = STATUS_COLORS[alert.status] || '#94a3b8';
-  
-  const isVerified = alert.status === 'Verified';
+  const color      = STATUS_COLORS[alert.status] || '#64748b';
+  const verified   = alert.status === 'Verified';
 
   return (
     <CircleMarker
       center={[lat, lng]}
-      pane="markerPane"
-      pathOptions={{ 
-        fillColor: color, 
-        fillOpacity: 0.8,
-        weight: isVerified ? 2 : 1,
-        color: isVerified ? '#ffffff' : color
+      radius={verified ? 7 : 5}
+      pathOptions={{
+        fillColor:   color,
+        fillOpacity: 0.9,
+        color:       verified ? '#fff' : color,
+        weight:      verified ? 1.5 : 0.5,
+        opacity:     0.9,
       }}
-      radius={isVerified ? 8 : 6}
-      eventHandlers={{
-        click: () => onClick(alert),
-      }}
-      className="cursor-pointer"
+      className=""
+      eventHandlers={{ click: () => onClick(alert) }}
     >
-      <Tooltip direction="top" offset={[0, -10]} opacity={1} className="custom-popup">
-        <div className="bg-gray-900 border border-gray-700 rounded shadow-xl p-2 max-w-[200px] text-white font-sans">
-          <div className="font-bold flex items-center space-x-1">
-            <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }}></span>
-            <span>{alert.source === 'imd' ? '🌤️' : '🐦'}</span>
-            <span>{alert.event_type}</span>
+      <Tooltip direction="top" offset={[0, -8]} opacity={1} className="custom-popup">
+        <div style={{
+          background:   'var(--bg-panel)',
+          border:       '1px solid var(--border)',
+          borderRadius: 5,
+          padding:      '6px 10px',
+          color:        'var(--text-primary)',
+          fontFamily:   'inherit',
+          maxWidth:     200,
+          boxShadow:    '0 4px 14px rgba(0,0,0,0.4)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 3 }}>
+            <span style={{ width: 7, height: 7, borderRadius: '50%', background: color, flexShrink: 0 }} />
+            <span style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--text-secondary)' }}>
+              {alert.event_type}
+            </span>
           </div>
-          <div className="text-xs text-gray-300 mt-1 line-clamp-2">{alert.text}</div>
+          <p style={{ margin: 0, fontSize: 12, color: 'var(--text-secondary)', lineHeight: 1.4,
+            overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+            {alert.text}
+          </p>
         </div>
       </Tooltip>
     </CircleMarker>

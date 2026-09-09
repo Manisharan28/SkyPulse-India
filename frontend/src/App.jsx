@@ -3,49 +3,95 @@ import StatsBar from './components/StatsBar'
 import Sidebar from './components/Sidebar'
 import MapView from './components/MapView'
 import XAIModal from './components/XAIModal'
-import EventChart from './components/EventChart'
 import { useAlerts } from './hooks/useAlerts'
 
 function App() {
-  const [filters, setFilters] = useState({ status: [], eventType: [], source: 'All' });
+  const [filters, setFilters] = useState({
+    status: [],
+    eventType: [],
+    location: '',
+    locationCoords: null,
+    radius: 0,
+  });
   const [selectedAlert, setSelectedAlert] = useState(null);
-  
-  // Custom hook fetches and polls the backend API
+
   const { alerts, stats, clusters, loading, error } = useAlerts(filters);
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-gray-950 overflow-hidden relative">
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      height: '100vh',
+      width: '100vw',
+      overflow: 'hidden',
+      background: 'var(--bg-base)',
+    }}>
+      {/* Header */}
       <StatsBar stats={stats} />
-      
-      <div className="flex-1 flex overflow-hidden relative">
-        <div className="absolute top-0 left-0 bottom-0 z-10 pointer-events-none p-4">
-          <Sidebar filters={filters} setFilters={setFilters} alerts={alerts} onAlertClick={(alert) => setSelectedAlert(alert)} />
-        </div>
 
-        <div className="absolute top-0 right-0 z-10 pointer-events-auto p-4 w-96 mt-2 opacity-95">
-          <EventChart alerts={alerts} />
-        </div>
-        
-        <div className="flex-1 z-0">
-          <MapView 
-            alerts={alerts} 
-            clusters={clusters} 
-            onMarkerClick={(alert) => setSelectedAlert(alert)} 
+      {/* Body: sidebar + map side by side */}
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
+        {/* Left filter panel */}
+        <Sidebar filters={filters} setFilters={setFilters} />
+
+        {/* Map — takes all remaining space */}
+        <div style={{ flex: 1, position: 'relative', overflow: 'hidden' }}>
+          <MapView
+            alerts={alerts}
+            clusters={clusters}
+            onMarkerClick={alert => setSelectedAlert(alert)}
+            filters={filters}
           />
+
+          {/* Loading overlay */}
+          {loading && (
+            <div style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              background: 'var(--bg-panel)',
+              border: '1px solid var(--border)',
+              borderRadius: 5,
+              padding: '5px 10px',
+              fontSize: 12,
+              color: 'var(--text-secondary)',
+              zIndex: 800,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 6,
+            }}>
+              <span style={{
+                width: 6, height: 6, borderRadius: '50%',
+                background: 'var(--accent)',
+                display: 'inline-block',
+                animation: 'pulse-ring 1s ease infinite',
+              }} />
+              Loading…
+            </div>
+          )}
+
+          {/* Error toast */}
+          {error && (
+            <div style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              zIndex: 900,
+              background: 'rgba(239,68,68,0.1)',
+              border: '1px solid rgba(239,68,68,0.4)',
+              borderRadius: 5,
+              padding: '6px 12px',
+              fontSize: 12,
+              color: '#fca5a5',
+            }}>
+              {error}
+            </div>
+          )}
         </div>
       </div>
 
-      <XAIModal 
-        alert={selectedAlert} 
-        onClose={() => setSelectedAlert(null)} 
-      />
-      
-      {/* Loading & Error overlays */}
-      {error && (
-        <div className="absolute top-20 right-4 bg-red-500/90 text-white px-4 py-2 rounded shadow-lg z-50 pointer-events-none">
-          {error}
-        </div>
-      )}
+      {/* Alert detail modal */}
+      <XAIModal alert={selectedAlert} onClose={() => setSelectedAlert(null)} />
     </div>
   )
 }

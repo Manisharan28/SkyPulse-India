@@ -68,19 +68,21 @@ def process_imd_data():
     # Insert events into DB
     collection = get_collection()
     for event in events:
-        # Update timestamp to now for mock data so it shows up in current filters
         if event.get("source") == "imd":
             event["timestamp"] = datetime.now(UTC)
             event["created_at"] = datetime.now(UTC)
             
-            # Generate a new unique ID to avoid DuplicateKeyError if we run this loop multiple times
-            event["tweet_id"] = f"imd_mock_{int(time.time())}_{event.get('tweet_id', 'unknown')}"
+            original_id = event.get("tweet_id", "unknown")
             
-        try:
-            collection.insert_one(event)
-            print(f"[IMD] Ingested official event: {event.get('event_type')} at {event.get('location', {}).get('coordinates')}")
-        except DuplicateKeyError:
-            pass
+            try:
+                collection.update_one(
+                    {"tweet_id": original_id},
+                    {"$set": event},
+                    upsert=True
+                )
+                print(f"[IMD] Upserted official event: {event.get('event_type')} at {event.get('location', {}).get('coordinates')}")
+            except Exception as e:
+                print(f"[IMD] Error upserting event: {e}")
             
 def imd_poller_loop():
     """Runs the IMD poller every 10 minutes."""

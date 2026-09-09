@@ -37,17 +37,6 @@ export function useAlerts(filters) {
         fetchedAlerts = fetchedAlerts.filter(a => filters.eventType.includes(a.event_type));
       }
 
-      if (filters.source && filters.source !== 'All') {
-        const sourceMap = {
-          'Twitter': ['live', 'mock'],
-          'IMD': ['imd']
-        };
-        const allowedSources = sourceMap[filters.source] || [];
-        if (allowedSources.length > 0) {
-          fetchedAlerts = fetchedAlerts.filter(a => allowedSources.includes(a.source));
-        }
-      }
-
       setAlerts(fetchedAlerts);
       setStats(statsRes.data);
       setClusters(clustersRes.data);
