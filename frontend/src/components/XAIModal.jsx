@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { X, CheckCircle, AlertTriangle, ShieldAlert, CloudRain, Thermometer, Wind, Droplets, Eye, Users, Radio, MapPin, Layers, FileImage, Cpu } from 'lucide-react';
+import { X, CheckCircle, AlertTriangle, ShieldAlert, CloudRain, Thermometer, Wind, Droplets, Eye, Users, Radio, MapPin, Layers, FileImage, Cpu, ExternalLink, Image } from 'lucide-react';
 import { STATUS_COLORS } from '../utils/constants';
 
 // ── Constants ────────────────────────────────────────────────────────────────
@@ -269,6 +269,42 @@ export default function XAIModal({ alert, onClose }) {
                 </>
               )}
             </div>
+
+            {/* Tweet link + media */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginTop: 8, flexWrap: 'wrap' }}>
+              {alert.tweet_url && (
+                <a
+                  href={alert.tweet_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 5,
+                    fontSize: 11,
+                    fontWeight: 600,
+                    color: '#1d9bf0',
+                    textDecoration: 'none',
+                    padding: '4px 10px',
+                    background: 'rgba(29,155,240,0.1)',
+                    border: '1px solid rgba(29,155,240,0.25)',
+                    borderRadius: 5,
+                    transition: 'background 0.15s, color 0.15s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(29,155,240,0.2)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(29,155,240,0.1)'; }}
+                >
+                  <ExternalLink size={11} />
+                  View Original Tweet
+                </a>
+              )}
+              {alert.has_media && (
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: 11, color: 'var(--accent-light)' }}>
+                  <Image size={11} />
+                  {(alert.media_urls || []).length} media attached
+                </span>
+              )}
+            </div>
           </div>
           <button
             onClick={onClose}
@@ -286,6 +322,117 @@ export default function XAIModal({ alert, onClose }) {
 
         {/* ── Scrollable Body ── */}
         <div className="panel-scroll" style={{ overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+          {/* ── Media Gallery ── */}
+          {alert.media_urls && alert.media_urls.length > 0 && (
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.07em', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 5 }}>
+                <Image size={12} style={{ color: 'var(--accent-light)' }} />
+                Media from Tweet
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: alert.media_urls.length === 1 ? '1fr' : '1fr 1fr', gap: 8 }}>
+                {alert.media_urls.map((media, idx) => {
+                  const isVideo = media.type === 'video';
+                  // Videos can only be played on Twitter, so link to the tweet
+                  const linkUrl = isVideo ? (alert.tweet_url || media.url) : media.url;
+
+                  return (
+                    <a
+                      key={idx}
+                      href={linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        display: 'block',
+                        borderRadius: 6,
+                        overflow: 'hidden',
+                        border: '1px solid var(--border)',
+                        position: 'relative',
+                        background: 'var(--bg-panel-alt)',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      <img
+                        src={media.url}
+                        alt={`Media ${idx + 1}`}
+                        style={{
+                          width: '100%',
+                          height: isVideo ? 180 : 'auto',
+                          maxHeight: 220,
+                          objectFit: 'cover',
+                          display: 'block',
+                        }}
+                        onError={e => {
+                          e.target.style.display = 'none';
+                          e.target.parentElement.querySelector('.media-fallback').style.display = 'flex';
+                        }}
+                      />
+                      <div className="media-fallback" style={{
+                        display: 'none',
+                        height: 80,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'var(--text-muted)',
+                        fontSize: 11,
+                        gap: 5,
+                      }}>
+                        <ExternalLink size={12} />
+                        {isVideo ? 'Open video on Twitter' : 'View image'}
+                      </div>
+
+                      {/* Video play button overlay */}
+                      {isVideo && (
+                        <div style={{
+                          position: 'absolute',
+                          inset: 0,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          background: 'rgba(0,0,0,0.35)',
+                        }}>
+                          {/* Play circle */}
+                          <div style={{
+                            width: 52,
+                            height: 52,
+                            borderRadius: '50%',
+                            background: 'rgba(29,155,240,0.9)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
+                            transition: 'transform 0.15s',
+                          }}>
+                            {/* Play triangle */}
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                              <path d="M8 5v14l11-7z" />
+                            </svg>
+                          </div>
+                          {/* Badge */}
+                          <div style={{
+                            position: 'absolute',
+                            bottom: 8,
+                            left: 8,
+                            fontSize: 10,
+                            fontWeight: 600,
+                            padding: '3px 8px',
+                            background: 'rgba(0,0,0,0.7)',
+                            color: '#fff',
+                            borderRadius: 4,
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 4,
+                          }}>
+                            <ExternalLink size={10} />
+                            Play on Twitter
+                          </div>
+                        </div>
+                      )}
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           {/* ── Credibility Score ── */}
           <div style={{

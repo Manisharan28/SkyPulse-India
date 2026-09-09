@@ -3,6 +3,7 @@ import StatsBar from './components/StatsBar'
 import Sidebar from './components/Sidebar'
 import MapView from './components/MapView'
 import XAIModal from './components/XAIModal'
+import RecentTweets from './components/RecentTweets'
 import { useAlerts } from './hooks/useAlerts'
 
 function App() {
@@ -29,7 +30,7 @@ function App() {
       {/* Header */}
       <StatsBar stats={stats} />
 
-      {/* Body: sidebar + map side by side */}
+      {/* Body: left sidebar + map + right sidebar */}
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
         {/* Left filter panel */}
         <Sidebar filters={filters} setFilters={setFilters} />
@@ -88,6 +89,9 @@ function App() {
             </div>
           )}
         </div>
+
+        {/* Right recent tweets panel */}
+        <RecentTweets alerts={alerts} onAlertClick={alert => setSelectedAlert(alert)} />
       </div>
 
       {/* Alert detail modal */}

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -11,6 +11,50 @@ import L from 'leaflet';
 import { MAP_CENTER, MAP_ZOOM } from '../utils/constants';
 import AlertMarker from './AlertMarker';
 import ClusterLayer from './ClusterLayer';
+import { Crosshair } from 'lucide-react';
+
+// Small button to reset the map view back to India
+function ResetViewButton() {
+  const map = useMap();
+
+  const resetView = useCallback(() => {
+    map.flyTo(MAP_CENTER, MAP_ZOOM, { animate: true, duration: 0.8 });
+  }, [map]);
+
+  return (
+    <div
+      onClick={resetView}
+      title="Reset to India view"
+      style={{
+        position: 'absolute',
+        bottom: 20,
+        right: 12,
+        zIndex: 800,
+        width: 34,
+        height: 34,
+        borderRadius: 6,
+        background: 'var(--bg-panel)',
+        border: '1px solid var(--border)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+        boxShadow: '0 2px 8px rgba(0,0,0,0.4)',
+        transition: 'background 0.15s, border-color 0.15s',
+      }}
+      onMouseEnter={e => {
+        e.currentTarget.style.background = 'var(--bg-panel-alt)';
+        e.currentTarget.style.borderColor = 'var(--accent)';
+      }}
+      onMouseLeave={e => {
+        e.currentTarget.style.background = 'var(--bg-panel)';
+        e.currentTarget.style.borderColor = 'var(--border)';
+      }}
+    >
+      <Crosshair size={16} style={{ color: 'var(--text-secondary)' }} />
+    </div>
+  );
+}
 
 /**
  * Compute LatLngBounds that wraps a geographic circle.
@@ -134,6 +178,13 @@ export default function MapView({ alerts, clusters, onMarkerClick, filters }) {
       <MapContainer
         center={MAP_CENTER}
         zoom={MAP_ZOOM}
+        minZoom={4}
+        maxZoom={18}
+        maxBounds={[
+          [6.0, 68.0],   // SW corner of India
+          [38.5, 99.5],  // NE corner of India
+        ]}
+        maxBoundsViscosity={1.0}
         style={{ width: '100%', height: '100%' }}
         zoomControl={false}
       >
@@ -150,6 +201,7 @@ export default function MapView({ alerts, clusters, onMarkerClick, filters }) {
         {(alerts || []).map(alert => (
           <AlertMarker key={alert._id} alert={alert} onClick={onMarkerClick} />
         ))}
+        <ResetViewButton />
       </MapContainer>
     </div>
   );
