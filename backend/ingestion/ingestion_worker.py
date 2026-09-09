@@ -62,6 +62,18 @@ def process_and_insert(tweet):
     # If we couldn't geolocate it, we still store it, but it won't appear on the map
     if not location:
         print(f"[NER] Failed to extract location from tweet {tweet.get('id')}")
+        # Secondary filter: if no location AND low ML confidence, drop it
+        if intent["confidence"] < 0.75:
+            print(f"[DISCARD] Tweet {tweet.get('id')} dropped — no location + low confidence ({intent['confidence']:.2f})")
+            return
+    else:
+        # Bounding box check
+        from ingestion.live_scraper import is_in_india
+        lat = location["coordinates"][1]
+        lon = location["coordinates"][0]
+        if not is_in_india(lat, lon):
+            print(f"[DISCARD] Outside India bbox: ({lat}, {lon})")
+            return
         
     # 3. Ground-Truth Verification (Phase 3)
     weather_score = 0.5
@@ -73,7 +85,9 @@ def process_and_insert(tweet):
     initial_score, initial_status = calculate_credibility(
         ml_confidence=intent["confidence"], 
         weather_score=weather_score, 
-        is_clustered=False
+        is_clustered=False,
+        followers=tweet.get("followers", 0),
+        has_media=tweet.get("has_media", False)
     )
         
     collection = get_collection()
@@ -84,6 +98,8 @@ def process_and_insert(tweet):
         "username": tweet.get("username", ""),
         "followers": tweet.get("followers", 0),
         "has_media": tweet.get("has_media", False),
+        "media_urls": tweet.get("media_urls", []),
+        "tweet_url": f"https://x.com/{tweet.get('username', 'i')}/status/{tweet.get('id', '')}" if tweet.get("id") else None,
         "event_type": event_type,
         "timestamp": datetime.fromisoformat(tweet.get("timestamp", "").replace("Z", "+00:00")),
         "location": location,
@@ -131,9 +147,6 @@ def live_ingestion_sync():
     """Runs the asyncio event loop for the live scraper in a background thread."""
     from ingestion.live_scraper import init_scraper, fetch_live_tweets, record_tweets
     
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    
     async def _live_loop():
         ready, api = await init_scraper()
         if not ready:
@@ -163,14 +176,12 @@ def live_ingestion_sync():
                 return False
 
     try:
-        success = loop.run_until_complete(_live_loop())
+        success = asyncio.run(_live_loop())
         if not success:
             mock_ingestion_loop()
     except Exception as e:
         print(f"[LIVE] Unhandled exception: {e}. Falling back to MOCK mode.")
         mock_ingestion_loop()
-    finally:
-        loop.close()
 
 def start_ingestion(app):
     mode = config.INGESTION_MODE.upper()

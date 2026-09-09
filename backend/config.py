@@ -18,10 +18,14 @@ DB_NAME = "sih_weather"
 COLLECTION_NAME = "alerts"
 
 # ─── Ingestion Mode ──────────────────────────────────────────────
-INGESTION_MODE = os.getenv("INGESTION_MODE", "MOCK")  # "LIVE" or "MOCK"
-INGEST_INTERVAL = 5           # seconds between tweet pushes (MOCK mode)
-LIVE_FETCH_INTERVAL = 180     # seconds between live fetch batches (3 min)
-LIVE_BATCH_SIZE = 15          # tweets per live fetch batch
+INGESTION_MODE = os.getenv("INGESTION_MODE", "MOCK")
+INGEST_INTERVAL = 5           # seconds between tweet pushes (drip-feed)
+LIVE_FETCH_INTERVAL = 3600    # seconds between live fetch batches (1 hour)
+LIVE_BATCH_SIZE = 30          # tweets per live fetch batch
+
+# ─── Data Retention ───────────────────────────────────────────────
+DATA_RETENTION_HOURS = int(os.getenv("DATA_RETENTION_HOURS", "24"))
+CLEANUP_INTERVAL = 1800       # run cleanup every 30 minutes
 
 # ─── Twitter/X Credentials (for LIVE mode only) ─────────────────
 TWITTER_USERNAME = os.getenv("TWITTER_USERNAME", "")
@@ -31,7 +35,17 @@ TWITTER_EMAIL_PASSWORD = os.getenv("TWITTER_EMAIL_PASSWORD", "")
 TWITTER_COOKIES = os.getenv("TWITTER_COOKIES", "")
 
 # ─── Scrape Query ────────────────────────────────────────────────
-SCRAPE_QUERY = "(#IMD OR #weather OR flood OR cyclone OR heavy rain) lang:en"
+SCRAPE_QUERY = (
+    "(#IMD OR #Mausam OR #RainAlert OR #FloodAlert OR #Cyclone "
+    "OR #Heatwave OR #Thunderstorm OR #Fog) "
+    "(India OR Mumbai OR Delhi OR Chennai OR Kolkata OR Bengaluru "
+    "OR Hyderabad OR Jaipur OR Patna OR Guwahati OR Kerala "
+    "OR Maharashtra OR Tamil Nadu OR Gujarat OR Rajasthan) "
+    "lang:en -is:retweet"
+)
+
+# ─── India Bounding Box ────────────────────────────────────────
+INDIA_BBOX = {"sw_lat": 6.0, "sw_lon": 68.0, "ne_lat": 38.5, "ne_lon": 99.5}
 
 # ─── ML Models (HuggingFace) ────────────────────────────────────
 DISASTER_MODEL = "aellxx/disaster-tweet-distilbert"
@@ -46,4 +60,4 @@ CLUSTER_RUN_INTERVAL = 30    # seconds between DBSCAN re-runs
 # ─── Flask ───────────────────────────────────────────────────────
 FLASK_HOST = "0.0.0.0"
 FLASK_PORT = 5000
-CORS_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173"]
+CORS_ORIGINS = "*"

@@ -16,10 +16,22 @@ def create_app():
     # Initialize Database
     with app.app_context():
         init_db()
+        # One-time cleanup: remove old mock data so dashboard shows real tweets only
+        from database.mongo import get_collection
+        result = get_collection().delete_many({"source": "mock"})
+        if result.deleted_count > 0:
+            print(f"[DB] Cleaned {result.deleted_count} old mock documents from database.")
         
+    from ingestion.ingestion_worker import start_ingestion
+    from verification.clustering import start_clustering
+    from ingestion.imd_poller import start_imd_poller
+    from ingestion.cleanup_worker import start_cleanup_worker
+    
     # Start background threads
     start_ingestion(app)
     start_clustering(app)
+    start_imd_poller(app)
+    start_cleanup_worker(app)
     
     # Register blueprints (to be populated in Phase 4)
     from routes.alerts import alerts_bp

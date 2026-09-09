@@ -1,0 +1,117 @@
+[
+  {
+    "tweet_id": "imd_mock_001",
+    "text": "CURRENT WEATHER: Heavy rainfall observed. Temperature: 26°C. Humidity: 89%.",
+    "username": "IMD_Official",
+    "followers": 500000,
+    "has_media": false,
+    "media_urls": [],
+    "tweet_url": "https://api.imd.gov.in/api/v1/current_wx",
+    "event_type": "Heavy Rain",
+    "timestamp": "2024-03-20T10:00:00Z",
+    "location": {
+      "type": "Point",
+      "coordinates": [72.8777, 19.0760]
+    },
+    "location_source": "imd_api",
+    "credibility_score": 1.0,
+    "status": "Verified",
+    "weather_score": 1.0,
+    "cluster_id": null,
+    "source": "imd",
+    "ml_confidence": 1.0,
+    "created_at": "2024-03-20T10:05:00Z"
+  },
+  {
+    "tweet_id": "imd_mock_002",
+    "text": "WARNING: Severe Heatwave conditions likely over parts of Delhi NCR for next 48 hours.",
+    "username": "IMD_Official",
+    "followers": 500000,
+    "has_media": false,
+    "media_urls": [],
+    "tweet_url": "https://api.imd.gov.in/api/v1/warnings",
+    "event_type": "Heatwave",
+    "timestamp": "2024-03-20T09:30:00Z",
+    "location": {
+      "type": "Point",
+      "coordinates": [77.1025, 28.7041]
+    },
+    "location_source": "imd_api",
+    "credibility_score": 1.0,
+    "status": "Verified",
+    "weather_score": 1.0,
+    "cluster_id": null,
+    "source": "imd",
+    "ml_confidence": 1.0,
+    "created_at": "2024-03-20T10:05:00Z"
+  },
+  {
+    "tweet_id": "imd_mock_003",
+    "text": "NOWCAST: Thunderstorms with lightning and gusty winds very likely.",
+    "username": "IMD_Official",
+    "followers": 500000,
+    "has_media": false,
+    "media_urls": [],
+    "tweet_url": "https://api.imd.gov.in/api/v1/districtnowcast",
+    "event_type": "Wind",
+    "timestamp": "2024-03-20T10:15:00Z",
+    "location": {
+      "type": "Point",
+      "coordinates": [88.3639, 22.5726]
+    },
+    "location_source": "imd_api",
+    "credibility_score": 1.0,
+    "status": "Verified",
+    "weather_score": 1.0,
+    "cluster_id": null,
+    "source": "imd",
+    "ml_confidence": 1.0,
+    "created_at": "2024-03-20T10:05:00Z"
+  },
+  {
+    "tweet_id": "imd_mock_004",
+    "text": "WARNING: Cyclone alert issued for coastal regions. Fishermen advised not to venture into sea.",
+    "username": "IMD_Official",
+    "followers": 500000,
+    "has_media": false,
+    "media_urls": [],
+    "tweet_url": "https://api.imd.gov.in/api/v1/warnings",
+    "event_type": "Cyclone",
+    "timestamp": "2024-03-20T08:00:00Z",
+    "location": {
+      "type": "Point",
+      "coordinates": [80.2707, 13.0827]
+    },
+    "location_source": "imd_api",
+    "credibility_score": 1.0,
+    "status": "Verified",
+    "weather_score": 1.0,
+    "cluster_id": null,
+    "source": "imd",
+    "ml_confidence": 1.0,
+    "created_at": "2024-03-20T10:05:00Z"
+  },
+  {
+    "tweet_id": "imd_mock_005",
+    "text": "CURRENT WEATHER: Moderate rainfall. Flood warning for low lying areas.",
+    "username": "IMD_Official",
+    "followers": 500000,
+    "has_media": false,
+    "media_urls": [],
+    "tweet_url": "https://api.imd.gov.in/api/v1/current_wx",
+    "event_type": "Flood",
+    "timestamp": "2024-03-20T09:45:00Z",
+    "location": {
+      "type": "Point",
+      "coordinates": [91.7362, 26.1445]
+    },
+    "location_source": "imd_api",
+    "credibility_score": 1.0,
+    "status": "Verified",
+    "weather_score": 1.0,
+    "cluster_id": null,
+    "source": "imd",
+    "ml_confidence": 1.0,
+    "created_at": "2024-03-20T10:05:00Z"
+  }
+]

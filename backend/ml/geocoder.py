@@ -26,24 +26,60 @@ INDIAN_CITIES = {
     "bhubaneswar": [20.2961, 85.8245]
 }
 
+import requests
+import time
+
+_geocode_cache = {}
+
 def geocode(location_name):
     """
     Looks up coordinates for a given city name.
+    First tries Nominatim (OpenStreetMap), then falls back to hardcoded list.
     Returns [lat, lng] or None if not found.
     """
     if not location_name:
         return None
         
-    # Clean the string for matching
     cleaned_name = location_name.lower().strip()
     
-    # Direct match
+    # Fast path / direct match for known major cities
     if cleaned_name in INDIAN_CITIES:
         return INDIAN_CITIES[cleaned_name]
         
-    # Partial match (e.g., if NER extracted "Mumbai City")
+    # Check in-memory cache
+    if cleaned_name in _geocode_cache:
+        return _geocode_cache[cleaned_name]
+        
+    # Rate-limit: Nominatim requires max 1 request/second
+    time.sleep(1.1)
+        
+    # Query OpenStreetMap Nominatim
+    url = "https://nominatim.openstreetmap.org/search"
+    params = {
+        "q": location_name,
+        "format": "json",
+        "limit": 1
+    }
+    headers = {
+        "User-Agent": "SIH-Weather-Analytics-App/1.0"
+    }
+    try:
+        resp = requests.get(url, params=params, headers=headers, timeout=5)
+        if resp.status_code == 200:
+            data = resp.json()
+            if data:
+                lat = float(data[0]["lat"])
+                lon = float(data[0]["lon"])
+                _geocode_cache[cleaned_name] = [lat, lon]
+                return [lat, lon]
+    except Exception as e:
+        print(f"[GEOCODER] Nominatim error for '{location_name}': {e}")
+        
+    # Partial match fallback
     for city, coords in INDIAN_CITIES.items():
         if city in cleaned_name:
+            _geocode_cache[cleaned_name] = coords
             return coords
             
+    _geocode_cache[cleaned_name] = None
     return None
