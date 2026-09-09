@@ -29,7 +29,7 @@ export default function StatsBar({ stats }) {
           color: 'var(--text-primary)',
           letterSpacing: '-0.3px',
         }}>
-          FasalX
+          SkyPulse India
         </span>
         <span style={{
           fontSize: 12,
